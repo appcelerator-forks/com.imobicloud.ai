@@ -1,9 +1,11 @@
 # Titanium UI - Activity Indicator
 
 xml
+	
 	<Widget id="vAI" src="com.imobicloud.ai" visible="true" message="Please wait..."/>
 	
 js
+	
 	// show AI with default message
 	$.vAI.toggle(true);
 	
