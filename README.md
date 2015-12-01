@@ -2,18 +2,31 @@
 
 xml
 	
-	<Widget id="vAI" src="com.imobicloud.ai" visible="true" message="Please wait..."/>
+	<Widget id=“ai” src="com.imobicloud.ai" visible="true" message="Please wait..." onTimeout=“aiTimeout”/>
 	
 js
 	
-	// show AI with default message
-	$.vAI.toggle(true);
-	
 	// show AI with custom message
-	$.vAI.toggle(true, 'Loading...');
+	$.ai.show({ message: 'Loading...' });
 	
 	// show AI, auto hide after 5 seconds
-	$.vAI.toggle(true, null, 5000);
+	$.ai.show({ message: 'Loading...', timeout: 5000 });
 	
 	// hide AI
-	$.vAI.toggle(false);
+	$.ai.hide();
+
+	function aiTimeout(){
+		var dialog = Ti.UI.createAlertDialog({
+			buttonNames : ['OK'],
+			message : 'Activity timeout',
+			title : 'Error'
+		});
+		dialog.show();
+	}
+
+Changes Log:
+
+- December 1, 2015: 
+  + remove toggle
+  + add show, hide
+  + add timeout event

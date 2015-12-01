@@ -1,8 +1,8 @@
 <Alloy>
-	<View id="ai">
-	    <View class="wrapper">
-	    	<ActivityIndicator id="loadingSpinner"/>
-	    	<Label id="loadingMessage">Loading...</Label>
+	<View id="ai" class="imc-ai">
+	    <View class="imc-ai-inner">
+	    	<ActivityIndicator id="loadingSpinner" class="imc-ai-ai"/>
+	    	<Label id="loadingMessage" class="imc-ai-message">Loading...</Label>
 	    </View>
 	</View>
 </Alloy>

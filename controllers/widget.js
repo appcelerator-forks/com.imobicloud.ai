@@ -1,49 +1,57 @@
-var aiTimeout,
-	args = arguments[0] || {};
+/*
+ args = {
+ 	visible: false,
+ 	message: null,
+ 	timeout: 0
+ }
+ * */
+var args = arguments[0] || {},
+	timeout;
 
-if (args.visible) {
-	showAI(args.message);
+init();
+function init() {
+  	if (args.visible) {
+		showAI(args);
+	}
 }
 
-exports.toggle = function(visible, message, timeout) {
-	if (aiTimeout) {
-		clearTimeout(aiTimeout);
-		aiTimeout = null;
+function unload() {
+  	if (timeout) {
+		clearTimeout(timeout);
+		timeout = null;
 	}
+}
+
+exports.unload = unload;
+
+/*
+ params = {
+ 	message: null,
+ 	timeout: 0
+ }
+ * */
+exports.show = function(params) {
+	unload();
 	
-	if (visible) {
-		showAI(message);
-		
-		if (timeout) {
-			aiTimeout = setTimeout(function(){
-				var dialog = Ti.UI.createAlertDialog({
-					buttonNames : ['OK'],
-					message : 'Activity timeout',
-					title : 'Error'
-				});
-				dialog.show();
-				dialog.addEventListener('click', hideAI);
-			}, timeout);
-		}
-	} else {
-		hideAI();
-	}
-};
-
-exports.unload = function() {
-  	if (aiTimeout) {
-		clearTimeout(aiTimeout);
-		aiTimeout = null;
-	}
-};
-
-function showAI(message) {
-  	message && ($.loadingMessage.text = message);
+	params.message && ($.loadingMessage.text = params.message);
+	
 	$.loadingSpinner.show();
 	$.ai.visible = true;
-}
+	
+	if (params.timeout) {
+		timeout = setTimeout(function(){ 
+			hideAI();
+			$.trigger('timeout'); 
+		}, params.timeout);
+	}
+};
 
 function hideAI() {
   	$.loadingSpinner.hide();
 	$.ai.visible = false;
 }
+
+exports.hide = function() {
+	unload();
+	hideAI();
+};
