@@ -33,6 +33,7 @@ exports.unload = unload;
 exports.show = function(params) {
 	unload();
 	
+	if (params == null) { params = {}; }
 	params.message && ($.loadingMessage.text = params.message);
 	
 	$.loadingSpinner.show();
