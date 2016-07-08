@@ -30,7 +30,7 @@ exports.unload = unload;
  	timeout: 0
  }
  * */
-exports.show = function(params) {
+function showAI(params) {
 	unload();
 	
 	if (params == null) { params = {}; }
@@ -46,6 +46,7 @@ exports.show = function(params) {
 		}, params.timeout);
 	}
 };
+exports.show = showAI;
 
 function hideAI() {
   	$.loadingSpinner.hide();
